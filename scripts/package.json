@@ -1,0 +1,13 @@
+{
+  "name": "microblading-blog-generator",
+  "version": "1.0.0",
+  "description": "Daily blog article generator for microblading-entfernung.ch",
+  "main": "generate-blog.js",
+  "scripts": {
+    "generate": "node generate-blog.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.39.0",
+    "@supabase/supabase-js": "^2.49.4"
+  }
+}
