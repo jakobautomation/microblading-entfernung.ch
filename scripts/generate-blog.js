@@ -34,6 +34,25 @@ const ARTICLE_TOPICS = [
   { slug: 'heilungsphase-microblading-entfernung', title: 'Die Heilungsphase nach der Microblading-Entfernung Schritt für Schritt', keywords: 'heilung microblading laser behandlung' },
   { slug: 'microblading-entfernen-kosten-vergleich', title: 'Microblading-Entfernung Kosten: Ein fairer Preisvergleich für die Schweiz', keywords: 'microblading entfernen kosten schweiz vergleich' },
   { slug: 'microblading-tiefe-haut-laser', title: 'Warum sitzt Microblading so tief — und was das für die Entfernung bedeutet', keywords: 'microblading pigmenttiefe laser entfernung' },
+  { slug: 'laser-entfernung-augenkontour', title: 'Eyeliner Tätowierung entfernen — Risiken rund ums Auge', keywords: 'eyeliner tattoo entfernen laser auge schweiz' },
+  { slug: 'microblading-entfernen-rapperswil', title: 'Microblading entfernen Rapperswil — Anreise nach Kreuzlingen', keywords: 'microblading entfernen rapperswil kreuzlingen' },
+  { slug: 'hautalterung-nach-microblading', title: 'Wie Hautalterung das Microblading verändert — und was du tun kannst', keywords: 'microblading hautalterung laser entfernung' },
+  { slug: 'microblading-entfernen-frauenfeld', title: 'Microblading entfernen Frauenfeld — Thurgau Spezialist in Kreuzlingen', keywords: 'microblading entfernen frauenfeld thurgau' },
+  { slug: 'pigment-allergie-microblading', title: 'Pigment-Allergie nach Microblading — was tun?', keywords: 'microblading allergie pigment entfernen schweiz' },
+  { slug: 'microblading-entfernen-schaffhausen', title: 'Microblading entfernen Schaffhausen — schnell nach Kreuzlingen', keywords: 'microblading entfernen schaffhausen kreuzlingen' },
+  { slug: 'pmu-korrektur-vs-entfernung', title: 'PMU Korrektur oder Entfernung — was ist besser?', keywords: 'pmu korrektur entfernung vergleich schweiz' },
+  { slug: 'microblading-entfernen-romanshorn', title: 'Microblading entfernen Romanshorn — direkt am Bodensee nach Kreuzlingen', keywords: 'microblading entfernen romanshorn bodensee' },
+  { slug: 'laser-entfernung-sommer-tipps', title: 'Laser-Behandlung im Sommer — was du beachten musst', keywords: 'picosure laser sommer hautpflege microblading' },
+  { slug: 'haarkranzes-pmu-entfernen', title: 'Haaransatz PMU entfernen — wenn das Ergebnis nicht stimmt', keywords: 'haaransatz pmu entfernen laser kreuzlingen' },
+  { slug: 'farbkorrektur-microblading-fehlgeschlagen', title: 'Farbkorrektur oder Entfernung — wenn das Microblading grün oder blau wird', keywords: 'microblading farbe korrektur gruen blau entfernen' },
+  { slug: 'microblading-entfernen-arbon', title: 'Microblading entfernen Arbon — kurze Fahrt nach Kreuzlingen lohnt sich', keywords: 'microblading entfernen arbon thurgau kreuzlingen' },
+  { slug: 'picosure-laser-hauttypen', title: 'PicoSure Laser und verschiedene Hauttypen — was du wissen musst', keywords: 'picosure laser hauttyp dunkel hell microblading' },
+  { slug: 'microblading-entfernen-diessenhofen', title: 'Microblading entfernen Diessenhofen und Region Thurgau', keywords: 'microblading entfernen diessenhofen thurgau' },
+  { slug: 'sonnenschutz-nach-laserbehandlung', title: 'Sonnenschutz nach der Laser-Behandlung — so schützt du deine Haut', keywords: 'sonnenschutz laser microblading entfernung sommer' },
+  { slug: 'microblading-entfernen-weinfelden', title: 'Microblading entfernen Weinfelden — Thurgau kommt zu uns nach Kreuzlingen', keywords: 'microblading entfernen weinfelden thurgau' },
+  { slug: 'kosten-picosure-vs-alternativen', title: 'PicoSure Kosten vs. günstige Alternativen — lohnt sich der Aufpreis?', keywords: 'picosure kosten vergleich laser microblading schweiz' },
+  { slug: 'microblading-entfernen-konstanz-tipps', title: 'Microblading entfernen in Konstanz — oder doch lieber Kreuzlingen?', keywords: 'microblading entfernen konstanz kreuzlingen vergleich' },
+  { slug: 'pmu-entfernen-lippen-erfahrung', title: 'Lippen-PMU entfernen — Erfahrungen und was du erwarten kannst', keywords: 'lippen pmu entfernen erfahrung laser kreuzlingen' },
 ];
 
 function createSlug(title) {
@@ -196,9 +215,7 @@ async function updateSitemap(slug, date) {
   fs.writeFileSync(sitemapPath, sitemap);
 }
 
-async function generateArticle(topic, anthropic) {
-  const today = new Date().toISOString().split('T')[0];
-
+async function generateArticle(topic, targetDate, anthropic) {
   const message = await anthropic.messages.create({
     model: 'claude-haiku-4-5-20251001',
     max_tokens: 2000,
@@ -248,7 +265,7 @@ Antworte NUR mit dem HTML-Content des Artikels. Keine Erklärungen.`
     meta_description: metaDesc,
     meta_title: `${topic.title} | Microblading-Entfernung.ch`,
     tags: ['microblading', 'entfernung', 'picosure', 'schweiz'],
-    published_at: new Date().toISOString(),
+    published_at: new Date(targetDate + 'T09:00:00').toISOString(),
     is_published: true
   };
 }
@@ -262,16 +279,42 @@ async function main() {
   const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
   const anthropic = new Anthropic({ apiKey: ANTHROPIC_KEY });
 
-  // Check if today's article already exists
-  const today = new Date().toISOString().split('T')[0];
-  const { data: existing } = await supabase
+  // Finde das neueste Artikel-Datum in Supabase
+  const { data: latest } = await supabase
+    .from('blog_articles')
+    .select('published_at')
+    .order('published_at', { ascending: false })
+    .limit(1);
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  // Zieldatum: max(heute, letztes Datum + 1 Tag)
+  // Wenn Artikel für die nächsten 14 Tage da sind → schreibe für Tag 15
+  let targetDate;
+  if (latest && latest.length > 0) {
+    const lastDate = new Date(latest[0].published_at);
+    lastDate.setHours(0, 0, 0, 0);
+    const nextDate = new Date(lastDate);
+    nextDate.setDate(nextDate.getDate() + 1);
+    // Mindestens heute, damit kein Artikel in der Vergangenheit angelegt wird
+    targetDate = nextDate > today ? nextDate : today;
+  } else {
+    targetDate = today;
+  }
+
+  const targetStr = targetDate.toISOString().split('T')[0];
+  console.log(`Zieldatum für neuen Artikel: ${targetStr}`);
+
+  // Prüfe ob für diesen Tag schon ein Artikel existiert
+  const { data: existingOnDate } = await supabase
     .from('blog_articles')
     .select('id')
-    .gte('published_at', today + 'T00:00:00')
-    .lte('published_at', today + 'T23:59:59');
+    .gte('published_at', targetStr + 'T00:00:00')
+    .lte('published_at', targetStr + 'T23:59:59');
 
-  if (existing && existing.length > 0) {
-    console.log('Artikel für heute bereits vorhanden. Beende.');
+  if (existingOnDate && existingOnDate.length > 0) {
+    console.log(`Artikel für ${targetStr} bereits vorhanden. Beende.`);
     return;
   }
 
@@ -289,10 +332,10 @@ async function main() {
   }
 
   const topic = available[0];
-  console.log(`Generiere Artikel: ${topic.title}`);
+  console.log(`Generiere Artikel: ${topic.title} → ${targetStr}`);
 
   try {
-    const article = await generateArticle(topic, anthropic);
+    const article = await generateArticle(topic, targetStr, anthropic);
 
     // Save to Supabase
     const { error } = await supabase
@@ -310,9 +353,9 @@ async function main() {
     fs.writeFileSync(path.join(articleDir, 'index.html'), generateHtml(article));
 
     // Update sitemap
-    await updateSitemap(article.slug, today);
+    await updateSitemap(article.slug, targetStr);
 
-    console.log(`✅ Artikel erstellt: /blog/${article.slug}/`);
+    console.log(`✅ Artikel erstellt: /blog/${article.slug}/ (online: ${targetStr})`);
   } catch (err) {
     console.error('Fehler:', err.message);
     process.exit(1);
