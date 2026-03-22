@@ -298,19 +298,30 @@ strong { font-weight: 600; }
 }
 .hero-img img {
   width: 100%;
-  height: clamp(260px, 45vw, 400px);
-  object-fit: cover;
-  object-position: center;
+  height: auto;
+  object-fit: contain;
   border-radius: var(--radius);
   filter: brightness(0.9) contrast(1.05);
 }
+/* Mobile-only Bild (nach H1) */
+.hero-img-mobile {
+  display: block;
+  margin: 1.25rem 0;
+}
+.hero-img-mobile img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+  filter: brightness(0.9) contrast(1.05);
+}
+/* Desktop: Mobile-Bild ausblenden, Original-Bild einblenden */
 @media (min-width: 1024px) {
-  .hero-img img {
-    height: auto;
-    max-height: 380px;
-    object-fit: contain;
-    object-position: center;
-  }
+  .hero-img-mobile { display: none; }
+  .hero-img img { max-height: 380px; }
+}
+/* Mobile: Original-Bild (rechte Spalte) ausblenden */
+@media (max-width: 1023px) {
+  .hero-img { display: none; }
 }
 .hero-img-badge {
   position: absolute;
