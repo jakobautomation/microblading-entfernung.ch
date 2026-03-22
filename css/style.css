@@ -298,10 +298,16 @@ strong { font-weight: 600; }
 }
 .hero-img img {
   width: 100%;
-  height: clamp(300px, 55vw, 520px);
+  height: clamp(260px, 45vw, 400px);
   object-fit: cover;
+  object-position: center;
   border-radius: var(--radius);
   filter: brightness(0.9) contrast(1.05);
+}
+@media (min-width: 1024px) {
+  .hero-img img {
+    height: clamp(320px, 28vw, 420px);
+  }
 }
 .hero-img-badge {
   position: absolute;
