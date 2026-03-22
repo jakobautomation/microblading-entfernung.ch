@@ -157,6 +157,54 @@
     });
   }
 
+  /* === TEL OVERLAY (nur Desktop) === */
+  function initTelOverlay() {
+    if (window.innerWidth < 768) return;
+
+    var overlay = document.createElement('div');
+    overlay.id = 'tel-overlay';
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-modal', 'true');
+    overlay.setAttribute('aria-label', 'Telefonnummer');
+    overlay.innerHTML =
+      '<div class="tel-modal">' +
+        '<button class="wa-qr-close" aria-label="Schließen">&times;</button>' +
+        '<div class="tel-icon">📞</div>' +
+        '<h3>Jetzt anrufen</h3>' +
+        '<a id="tel-number" href="#" class="tel-number-display"></a>' +
+        '<p class="wa-qr-hint" style="margin-top:1rem;">Einfach die Nummer wählen — wir sind Mo–Sa erreichbar.</p>' +
+      '</div>';
+    document.body.appendChild(overlay);
+
+    function closeTelOverlay() { overlay.classList.remove('active'); }
+
+    overlay.querySelector('.wa-qr-close').addEventListener('click', closeTelOverlay);
+    overlay.addEventListener('click', function(e) {
+      if (e.target === overlay) closeTelOverlay();
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeTelOverlay();
+    });
+
+    document.addEventListener('click', function(e) {
+      var link = e.target.closest('a[href^="tel:"]');
+      if (!link) return;
+      e.preventDefault();
+      var href = link.getAttribute('href');
+      var number = href.replace('tel:', '');
+      // Formatiere Nummer lesbar: +41794132761 → +41 79 413 27 61
+      var formatted = number
+        .replace(/^\+41(\d{2})(\d{3})(\d{2})(\d{2})$/, '+41 $1 $2 $3 $4')
+        .replace(/^\+49(\d{4})(\d{2})(\d{2})(\d{5})$/, '+49 $1 $2 $3 $4')
+        .replace(/^\+49(\d+)/, function(m, n) { return '+49 ' + n; });
+      var el = document.getElementById('tel-number');
+      el.href = href;
+      el.textContent = formatted || number;
+      overlay.classList.add('active');
+      overlay.querySelector('.wa-qr-close').focus();
+    });
+  }
+
   /* === INIT === */
   document.addEventListener('DOMContentLoaded', function() {
     _init();
@@ -165,6 +213,7 @@
     initReveal();
     initFaq();
     initWhatsAppQR();
+    initTelOverlay();
   });
 
 })();
