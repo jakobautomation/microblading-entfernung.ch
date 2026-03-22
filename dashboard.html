@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Analytics · Microblading-Entfernung.ch</title>
+  <meta name="robots" content="noindex, nofollow">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&display=swap">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0C0E14;
+      --surface: #141720;
+      --surface2: #1C2030;
+      --border: rgba(255,255,255,0.07);
+      --accent: #8855CC;
+      --accent-glow: rgba(136,85,204,0.2);
+      --green: #10B981;
+      --blue: #3B82F6;
+      --amber: #F59E0B;
+      --red: #EF4444;
+      --text: #E2E8F0;
+      --muted: #64748B;
+      --muted2: #94A3B8;
+    }
+    html, body { height: 100%; }
+    body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); color: var(--text); font-size: 14px; line-height: 1.5; }
+
+    /* ── LOGIN ── */
+    #login-screen {
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      background: radial-gradient(ellipse at 50% 0%, rgba(136,85,204,0.12) 0%, transparent 60%), var(--bg);
+    }
+    .login-card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 16px;
+      padding: 2.5rem 2rem; width: 100%; max-width: 380px; text-align: center;
+    }
+    .login-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+    .login-card h1 { font-size: 1.4rem; font-weight: 600; margin-bottom: 0.25rem; }
+    .login-card .sub { color: var(--muted); font-size: 0.85rem; margin-bottom: 2rem; }
+    .login-card input[type="password"] {
+      width: 100%; padding: 0.75rem 1rem; background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 8px; color: var(--text); font-size: 1rem; font-family: inherit; outline: none;
+      margin-bottom: 0.75rem; transition: border-color .2s;
+    }
+    .login-card input[type="password"]:focus { border-color: var(--accent); }
+    .login-card button {
+      width: 100%; padding: 0.75rem; background: var(--accent); border: none; border-radius: 8px;
+      color: #fff; font-size: 0.95rem; font-weight: 600; font-family: inherit; cursor: pointer;
+      transition: opacity .2s;
+    }
+    .login-card button:hover { opacity: 0.85; }
+    .login-error { color: var(--red); font-size: 0.82rem; margin-top: 0.75rem; display: none; }
+
+    /* ── DASHBOARD ── */
+    #dashboard { display: none; min-height: 100vh; }
+
+    /* Header */
+    .dash-header {
+      background: var(--surface); border-bottom: 1px solid var(--border);
+      padding: 0 1.5rem; height: 56px; display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .dash-logo { font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 0.5rem; }
+    .dash-logo span { color: var(--accent); }
+    .dash-logo .dot { width: 7px; height: 7px; background: var(--green); border-radius: 50%; display: inline-block; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+    .dash-right { display: flex; align-items: center; gap: 0.75rem; }
+    .range-btns { display: flex; gap: 4px; }
+    .range-btn {
+      padding: 0.3rem 0.75rem; border-radius: 6px; border: 1px solid var(--border);
+      background: transparent; color: var(--muted2); font-size: 0.8rem; cursor: pointer; font-family: inherit;
+      transition: all .15s;
+    }
+    .range-btn.active, .range-btn:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .logout-btn {
+      padding: 0.3rem 0.75rem; border-radius: 6px; border: 1px solid var(--border);
+      background: transparent; color: var(--muted); font-size: 0.8rem; cursor: pointer; font-family: inherit;
+    }
+    .logout-btn:hover { border-color: var(--red); color: var(--red); }
+
+    /* Main */
+    .dash-main { padding: 1.5rem; max-width: 1400px; margin: 0 auto; }
+
+    /* Loading / Error */
+    .dash-loading {
+      display: flex; align-items: center; justify-content: center; gap: 0.75rem;
+      min-height: 60vh; color: var(--muted); font-size: 0.95rem;
+    }
+    .spinner {
+      width: 22px; height: 22px; border: 2px solid var(--border);
+      border-top-color: var(--accent); border-radius: 50%; animation: spin .7s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* KPI cards */
+    .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1.25rem; }
+    @media (max-width: 900px) { .kpi-row { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 500px) { .kpi-row { grid-template-columns: 1fr; } }
+    .kpi-card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+      padding: 1.25rem 1.5rem; display: flex; flex-direction: column; gap: 0.35rem;
+    }
+    .kpi-label { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 500; }
+    .kpi-value { font-size: 2rem; font-weight: 700; letter-spacing: -0.02em; line-height: 1; }
+    .kpi-sub { font-size: 0.78rem; color: var(--muted); margin-top: 0.15rem; }
+    .kpi-card.accent .kpi-value { color: var(--accent); }
+    .kpi-card.green .kpi-value { color: var(--green); }
+    .kpi-card.blue .kpi-value { color: var(--blue); }
+    .kpi-card.amber .kpi-value { color: var(--amber); }
+
+    /* Chart rows */
+    .charts-row { display: grid; gap: 1rem; margin-bottom: 1.25rem; }
+    .charts-row-2 { grid-template-columns: 2fr 1fr; }
+    .charts-row-3 { grid-template-columns: 1fr 1fr 1fr; }
+    @media (max-width: 1024px) { .charts-row-2, .charts-row-3 { grid-template-columns: 1fr; } }
+
+    .chart-card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem;
+    }
+    .chart-title { font-size: 0.82rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin-bottom: 1rem; }
+    .chart-wrap { position: relative; }
+    .chart-wrap canvas { max-height: 240px; }
+    .chart-wrap-sm canvas { max-height: 200px; }
+
+    /* Tables */
+    .table-card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+      padding: 1.25rem; overflow: hidden;
+    }
+    .data-table { width: 100%; border-collapse: collapse; font-size: 0.83rem; }
+    .data-table th {
+      text-align: left; padding: 0.5rem 0.75rem; font-size: 0.72rem;
+      text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 500;
+      border-bottom: 1px solid var(--border);
+    }
+    .data-table td { padding: 0.6rem 0.75rem; border-bottom: 1px solid rgba(255,255,255,0.03); color: var(--muted2); }
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table tr:hover td { background: rgba(255,255,255,0.02); }
+    .data-table .bar-cell { display: flex; align-items: center; gap: 0.5rem; }
+    .bar-bg { flex: 1; height: 5px; background: rgba(255,255,255,0.06); border-radius: 3px; overflow: hidden; }
+    .bar-fill { height: 100%; border-radius: 3px; background: var(--accent); }
+    .num { color: var(--text); font-weight: 600; font-variant-numeric: tabular-nums; }
+
+    /* Conversion breakdown */
+    .conv-row { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 0.5rem; }
+    .conv-item { display: flex; align-items: center; gap: 0.75rem; }
+    .conv-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .conv-label { flex: 1; font-size: 0.85rem; color: var(--muted2); }
+    .conv-val { font-weight: 600; color: var(--text); font-size: 0.9rem; }
+
+    /* Empty state */
+    .empty { text-align: center; padding: 2rem; color: var(--muted); font-size: 0.85rem; }
+
+    /* Updated at */
+    .last-updated { font-size: 0.75rem; color: var(--muted); text-align: right; margin-top: 1rem; padding-bottom: 1rem; }
+  </style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="login-card">
+    <div class="login-icon">📊</div>
+    <h1>Analytics Dashboard</h1>
+    <p class="sub">microblading-entfernung.ch</p>
+    <form id="login-form" autocomplete="on">
+      <input type="password" id="pw-input" placeholder="Passwort" autocomplete="current-password" autofocus>
+      <button type="submit">Einloggen →</button>
+    </form>
+    <div class="login-error" id="pw-error">Falsches Passwort</div>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashboard">
+  <header class="dash-header">
+    <div class="dash-logo">
+      <span class="dot"></span>
+      Microblading-Entfernung<span>.ch</span>
+    </div>
+    <div class="dash-right">
+      <div class="range-btns">
+        <button class="range-btn" data-days="1">Heute</button>
+        <button class="range-btn" data-days="7">7 Tage</button>
+        <button class="range-btn active" data-days="30">30 Tage</button>
+        <button class="range-btn" data-days="90">90 Tage</button>
+        <button class="range-btn" data-days="0">Gesamt</button>
+      </div>
+      <button class="logout-btn" id="logout-btn">Ausloggen</button>
+    </div>
+  </header>
+
+  <main class="dash-main">
+    <div id="dash-content">
+      <div class="dash-loading"><div class="spinner"></div>Daten werden geladen…</div>
+    </div>
+  </main>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ─── CONFIG ─── */
+  const SB_URL = 'https://fbshvqmwdidfitrigxvp.supabase.co';
+  const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZic2h2cW13ZGlkZml0cmlneHZwIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NDExMDY4OSwiZXhwIjoyMDg5Njg2Njg5fQ.YZexMo6QaIdJOOeXPXg06hrfX2gBOkZso90f2JNg_qE';
+  const PW_HASH = '8435646123497eca15f5cf5e727b460d2f96944f3613303495f62840b5f1a650'; // sha256("jakob2026")
+
+  /* ─── LOGIN ─── */
+  async function sha256(str) {
+    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+  }
+
+  function isLoggedIn() { return sessionStorage.getItem('dash_auth') === '1'; }
+
+  document.getElementById('login-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const pw = document.getElementById('pw-input').value;
+    const hash = await sha256(pw);
+    if (hash === PW_HASH) {
+      sessionStorage.setItem('dash_auth', '1');
+      document.getElementById('login-screen').style.display = 'none';
+      document.getElementById('dashboard').style.display = 'block';
+      initDashboard();
+    } else {
+      document.getElementById('pw-error').style.display = 'block';
+      document.getElementById('pw-input').value = '';
+    }
+  });
+
+  document.getElementById('logout-btn').addEventListener('click', () => {
+    sessionStorage.removeItem('dash_auth');
+    location.reload();
+  });
+
+  if (isLoggedIn()) {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('dashboard').style.display = 'block';
+  }
+
+  /* ─── RANGE ─── */
+  let currentDays = 30;
+  let allData = null;
+  let charts = {};
+
+  document.querySelectorAll('.range-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.range-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentDays = parseInt(btn.dataset.days);
+      if (allData) renderDashboard(allData, currentDays);
+    });
+  });
+
+  /* ─── DATA FETCH ─── */
+  async function fetchData() {
+    const res = await fetch(
+      `${SB_URL}/rest/v1/page_views?select=id,created_at,url,device_type,referrer,user_agent&order=created_at.asc&limit=50000`,
+      {
+        headers: {
+          'apikey': SB_KEY,
+          'Authorization': `Bearer ${SB_KEY}`,
+          'Range': '0-49999',
+          'Range-Unit': 'items'
+        }
+      }
+    );
+    if (!res.ok) throw new Error(`Supabase HTTP ${res.status}`);
+    return res.json();
+  }
+
+  /* ─── HELPERS ─── */
+  function groupByCount(arr, keyFn, limit) {
+    const map = {};
+    arr.forEach(r => { const k = keyFn(r); map[k] = (map[k] || 0) + 1; });
+    return Object.entries(map)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, limit || 999);
+  }
+
+  function prettifyUrl(url) {
+    if (!url || url === '/') return 'Homepage';
+    const map = {
+      '/augenbrauen-entfernung/': 'Augenbrauen Entfernung',
+      '/permanent-makeup-entfernung/': 'PMU Entfernung',
+      '/picosure-laser/': 'PicoSure Laser',
+      '/preise/': 'Preise',
+      '/faq/': 'FAQ',
+      '/blog/': 'Blog Übersicht',
+      '/impressum/': 'Impressum',
+      '/datenschutz/': 'Datenschutz',
+    };
+    if (map[url]) return map[url];
+    if (url.startsWith('/blog/')) return 'Blog: ' + url.replace('/blog/', '').replace(/\/$/, '').replace(/-/g, ' ');
+    return url;
+  }
+
+  function parseReferrer(ref) {
+    if (!ref) return 'Direkt';
+    try {
+      const host = new URL(ref).hostname.replace('www.', '');
+      if (host.startsWith('google.')) return 'Google';
+      if (host.startsWith('bing.')) return 'Bing';
+      if (host.includes('facebook') || host.includes('fb.')) return 'Facebook';
+      if (host.includes('instagram')) return 'Instagram';
+      if (host.includes('tiktok')) return 'TikTok';
+      if (host.includes('whatsapp')) return 'WhatsApp';
+      if (host.includes('youtube')) return 'YouTube';
+      if (host.includes('microblading-entfernung.ch')) return 'Intern';
+      return host;
+    } catch { return 'Direkt'; }
+  }
+
+  function parseBrowser(ua) {
+    if (!ua) return 'Unbekannt';
+    if (/Edg\//.test(ua)) return 'Edge';
+    if (/OPR\/|Opera/.test(ua)) return 'Opera';
+    if (/CriOS/.test(ua)) return 'Chrome (iOS)';
+    if (/FxiOS/.test(ua)) return 'Firefox (iOS)';
+    if (/Chrome\//.test(ua)) return 'Chrome';
+    if (/Firefox\//.test(ua)) return 'Firefox';
+    if (/Safari\//.test(ua) && /Version\//.test(ua)) return 'Safari';
+    return 'Sonstige';
+  }
+
+  function filterByDays(data, days) {
+    if (!days) return data;
+    const cutoff = new Date();
+    cutoff.setDate(cutoff.getDate() - days);
+    cutoff.setHours(0, 0, 0, 0);
+    return data.filter(r => new Date(r.created_at) >= cutoff);
+  }
+
+  function isToday(dateStr) {
+    const d = new Date(dateStr);
+    const now = new Date();
+    return d.getDate() === now.getDate() && d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear();
+  }
+
+  function buildDailyMap(views, days) {
+    const map = {};
+    const n = days || 30;
+    for (let i = n - 1; i >= 0; i--) {
+      const d = new Date(); d.setDate(d.getDate() - i);
+      map[d.toISOString().slice(0, 10)] = 0;
+    }
+    views.forEach(r => {
+      const key = r.created_at.slice(0, 10);
+      if (key in map) map[key]++;
+    });
+    return map;
+  }
+
+  /* ─── CHARTS ─── */
+  const COLORS = {
+    purple: '#8855CC', blue: '#3B82F6', green: '#10B981',
+    amber: '#F59E0B', red: '#EF4444', teal: '#14B8A6', pink: '#EC4899'
+  };
+
+  function destroyCharts() {
+    Object.values(charts).forEach(c => { if (c) c.destroy(); });
+    charts = {};
+  }
+
+  function makeLineChart(id, labels, data) {
+    const ctx = document.getElementById(id).getContext('2d');
+    const grad = ctx.createLinearGradient(0, 0, 0, 220);
+    grad.addColorStop(0, 'rgba(136,85,204,0.3)');
+    grad.addColorStop(1, 'rgba(136,85,204,0)');
+    return new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels,
+        datasets: [{
+          data, fill: true, backgroundColor: grad,
+          borderColor: COLORS.purple, borderWidth: 2,
+          pointRadius: labels.length > 20 ? 0 : 3,
+          pointHoverRadius: 5,
+          pointBackgroundColor: COLORS.purple,
+          tension: 0.35
+        }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: true,
+        plugins: { legend: { display: false }, tooltip: {
+          backgroundColor: '#1C2030', borderColor: 'rgba(255,255,255,0.1)', borderWidth: 1,
+          titleColor: '#E2E8F0', bodyColor: '#94A3B8',
+          callbacks: { title: i => i[0].label, label: i => ` ${i.raw} Aufrufe` }
+        }},
+        scales: {
+          x: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { color: '#64748B', maxTicksLimit: 8, font: { size: 11 } } },
+          y: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { color: '#64748B', font: { size: 11 }, precision: 0 }, beginAtZero: true }
+        }
+      }
+    });
+  }
+
+  function makeDonut(id, labels, data, colors) {
+    const ctx = document.getElementById(id).getContext('2d');
+    return new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        labels,
+        datasets: [{ data, backgroundColor: colors, borderWidth: 2, borderColor: '#141720', hoverOffset: 6 }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: true, cutout: '68%',
+        plugins: {
+          legend: { position: 'bottom', labels: { color: '#94A3B8', padding: 16, font: { size: 12 }, boxWidth: 12, boxHeight: 12, borderRadius: 3 } },
+          tooltip: {
+            backgroundColor: '#1C2030', borderColor: 'rgba(255,255,255,0.1)', borderWidth: 1,
+            titleColor: '#E2E8F0', bodyColor: '#94A3B8',
+            callbacks: { label: i => ` ${i.label}: ${i.raw} (${Math.round(i.raw / i.dataset.data.reduce((a, b) => a + b, 0) * 100)}%)` }
+          }
+        }
+      }
+    });
+  }
+
+  /* ─── RENDER ─── */
+  function renderDashboard(raw, days) {
+    destroyCharts();
+
+    const filtered = filterByDays(raw, days);
+    const views = filtered.filter(r => !r.url.startsWith('_conversion/'));
+    const convs  = filtered.filter(r =>  r.url.startsWith('_conversion/'));
+
+    const totalViews  = views.length;
+    const todayViews  = views.filter(r => isToday(r.created_at)).length;
+    const totalConvs  = convs.length;
+    const convRate    = totalViews > 0 ? (totalConvs / totalViews * 100).toFixed(1) : '0.0';
+
+    // Daily map
+    const displayDays = days || 30;
+    const dailyMap    = buildDailyMap(views, displayDays);
+    const dayLabels   = Object.keys(dailyMap).map(k => {
+      const [, m, d] = k.split('-');
+      return `${d}.${m}.`;
+    });
+    const dayValues   = Object.values(dailyMap);
+
+    // Device
+    const deviceGroups = groupByCount(views, r => r.device_type || 'unbekannt', 3);
+
+    // Top pages
+    const topPages = groupByCount(views.filter(r => r.url && !r.url.startsWith('_')), r => r.url, 10);
+    const maxPage  = topPages[0]?.[1] || 1;
+
+    // Referrer
+    const topRefs = groupByCount(views, r => parseReferrer(r.referrer), 10);
+    const maxRef  = topRefs[0]?.[1] || 1;
+
+    // Conversions
+    const waCount  = convs.filter(r => r.url === '_conversion/whatsapp').length;
+    const telCount = convs.filter(r => r.url === '_conversion/tel').length;
+
+    // Browser
+    const topBrowsers = groupByCount(views, r => parseBrowser(r.user_agent), 5);
+
+    // ── HTML ──
+    document.getElementById('dash-content').innerHTML = `
+      <!-- KPI -->
+      <div class="kpi-row">
+        <div class="kpi-card accent">
+          <div class="kpi-label">Seitenaufrufe</div>
+          <div class="kpi-value">${totalViews.toLocaleString('de')}</div>
+          <div class="kpi-sub">${days ? `letzte ${days} Tage` : 'gesamt'}</div>
+        </div>
+        <div class="kpi-card blue">
+          <div class="kpi-label">Heute</div>
+          <div class="kpi-value">${todayViews.toLocaleString('de')}</div>
+          <div class="kpi-sub">Aufrufe heute</div>
+        </div>
+        <div class="kpi-card green">
+          <div class="kpi-label">Conversions</div>
+          <div class="kpi-value">${totalConvs.toLocaleString('de')}</div>
+          <div class="kpi-sub">WhatsApp + Anrufe</div>
+        </div>
+        <div class="kpi-card amber">
+          <div class="kpi-label">Conversion Rate</div>
+          <div class="kpi-value">${convRate}%</div>
+          <div class="kpi-sub">Aufrufe → Kontakt</div>
+        </div>
+      </div>
+
+      <!-- Line + Device -->
+      <div class="charts-row charts-row-2">
+        <div class="chart-card">
+          <div class="chart-title">Aufrufe pro Tag</div>
+          <div class="chart-wrap"><canvas id="chart-daily"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-title">Gerätetyp</div>
+          <div class="chart-wrap chart-wrap-sm"><canvas id="chart-device"></canvas></div>
+        </div>
+      </div>
+
+      <!-- Top pages + Conversions + Browser -->
+      <div class="charts-row charts-row-3">
+        <div class="table-card">
+          <div class="chart-title">Top Seiten</div>
+          ${topPages.length ? `
+          <table class="data-table">
+            <thead><tr><th>Seite</th><th style="text-align:right">Aufrufe</th></tr></thead>
+            <tbody>${topPages.map(([url, cnt]) => `
+              <tr>
+                <td>
+                  <div class="bar-cell">
+                    <div class="bar-bg"><div class="bar-fill" style="width:${Math.round(cnt/maxPage*100)}%"></div></div>
+                    ${prettifyUrl(url)}
+                  </div>
+                </td>
+                <td style="text-align:right"><span class="num">${cnt}</span></td>
+              </tr>`).join('')}
+            </tbody>
+          </table>` : '<div class="empty">Noch keine Daten</div>'}
+        </div>
+
+        <div class="chart-card">
+          <div class="chart-title">Conversions</div>
+          ${totalConvs > 0 ? `
+            <div class="chart-wrap chart-wrap-sm"><canvas id="chart-conv"></canvas></div>
+            <div class="conv-row" style="margin-top:1rem">
+              <div class="conv-item">
+                <div class="conv-dot" style="background:${COLORS.green}"></div>
+                <div class="conv-label">💬 WhatsApp</div>
+                <div class="conv-val">${waCount}</div>
+              </div>
+              <div class="conv-item">
+                <div class="conv-dot" style="background:${COLORS.blue}"></div>
+                <div class="conv-label">📞 Anruf</div>
+                <div class="conv-val">${telCount}</div>
+              </div>
+            </div>` : '<div class="empty">Noch keine Conversions</div>'}
+        </div>
+
+        <div class="table-card">
+          <div class="chart-title">Browser</div>
+          ${topBrowsers.length ? `
+          <table class="data-table">
+            <thead><tr><th>Browser</th><th style="text-align:right">Aufrufe</th></tr></thead>
+            <tbody>${topBrowsers.map(([name, cnt]) => `
+              <tr>
+                <td>${name}</td>
+                <td style="text-align:right"><span class="num">${cnt}</span></td>
+              </tr>`).join('')}
+            </tbody>
+          </table>` : '<div class="empty">Noch keine Daten</div>'}
+        </div>
+      </div>
+
+      <!-- Referrer -->
+      <div class="table-card" style="margin-bottom:1.25rem">
+        <div class="chart-title">Herkunft (Referrer)</div>
+        ${topRefs.length ? `
+        <table class="data-table">
+          <thead><tr><th>Quelle</th><th style="text-align:right">Besuche</th><th style="text-align:right">Anteil</th></tr></thead>
+          <tbody>${topRefs.map(([ref, cnt]) => `
+            <tr>
+              <td>
+                <div class="bar-cell">
+                  <div class="bar-bg"><div class="bar-fill" style="width:${Math.round(cnt/maxRef*100)}%;background:${ref==='Google'?COLORS.blue:ref==='Direkt'?COLORS.purple:COLORS.teal}"></div></div>
+                  ${ref}
+                </div>
+              </td>
+              <td style="text-align:right"><span class="num">${cnt}</span></td>
+              <td style="text-align:right;color:var(--muted)">${totalViews > 0 ? Math.round(cnt/totalViews*100) : 0}%</td>
+            </tr>`).join('')}
+          </tbody>
+        </table>` : '<div class="empty">Noch keine Daten</div>'}
+      </div>
+
+      <div class="last-updated">Zuletzt aktualisiert: ${new Date().toLocaleString('de-CH')}</div>
+    `;
+
+    // Init charts after DOM update
+    requestAnimationFrame(() => {
+      charts.daily = makeLineChart('chart-daily', dayLabels, dayValues);
+
+      if (deviceGroups.length) {
+        const devColors = { mobile: COLORS.purple, tablet: COLORS.amber, desktop: COLORS.blue, unbekannt: '#475569' };
+        charts.device = makeDonut('chart-device',
+          deviceGroups.map(([k]) => k.charAt(0).toUpperCase() + k.slice(1)),
+          deviceGroups.map(([, v]) => v),
+          deviceGroups.map(([k]) => devColors[k] || '#475569')
+        );
+      }
+
+      if (totalConvs > 0 && document.getElementById('chart-conv')) {
+        charts.conv = makeDonut('chart-conv',
+          ['WhatsApp', 'Anruf'],
+          [waCount, telCount],
+          [COLORS.green, COLORS.blue]
+        );
+      }
+    });
+  }
+
+  /* ─── INIT ─── */
+  async function initDashboard() {
+    try {
+      allData = await fetchData();
+      renderDashboard(allData, currentDays);
+    } catch (err) {
+      document.getElementById('dash-content').innerHTML =
+        `<div class="dash-loading" style="color:var(--red)">⚠ Fehler beim Laden: ${err.message}</div>`;
+    }
+  }
+
+  if (isLoggedIn()) initDashboard();
+})();
+</script>
+</body>
+</html>

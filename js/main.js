@@ -6,23 +6,38 @@
   'use strict';
 
   /* === ANALYTICS === */
-  function _init() {
+  var _SB_URL = 'https://fbshvqmwdidfitrigxvp.supabase.co/rest/v1/page_views';
+  var _SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZic2h2cW13ZGlkZml0cmlneHZwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQxMTA2ODksImV4cCI6MjA4OTY4NjY4OX0.oNKzZ1ZmqlcvDDmUvcGlBeWUgobogzyCD6PbomrS0k0';
+
+  function _post(data) {
     try {
-      var d = {
-        url: location.pathname,
-        referrer: document.referrer || null,
-        user_agent: navigator.userAgent,
-        device_type: window.innerWidth < 768 ? 'mobile' : window.innerWidth < 1024 ? 'tablet' : 'desktop',
-        screen_width: window.screen.width
-      };
-      var _k = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZic2h2cW13ZGlkZml0cmlneHZwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQxMTA2ODksImV4cCI6MjA4OTY4NjY4OX0.oNKzZ1ZmqlcvDDmUvcGlBeWUgobogzyCD6PbomrS0k0';
-      fetch('https://fbshvqmwdidfitrigxvp.supabase.co/rest/v1/page_views', {
+      fetch(_SB_URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'apikey': _k, 'Authorization': 'Bearer ' + _k },
-        body: JSON.stringify(d),
+        headers: { 'Content-Type': 'application/json', 'apikey': _SB_KEY, 'Authorization': 'Bearer ' + _SB_KEY },
+        body: JSON.stringify(data),
         keepalive: true
       }).catch(function(){});
     } catch(e) {}
+  }
+
+  function _init() {
+    _post({
+      url: location.pathname,
+      referrer: document.referrer || null,
+      user_agent: navigator.userAgent,
+      device_type: window.innerWidth < 768 ? 'mobile' : window.innerWidth < 1024 ? 'tablet' : 'desktop',
+      screen_width: window.screen.width
+    });
+  }
+
+  function _trackConversion(type) {
+    _post({
+      url: '_conversion/' + type,
+      referrer: location.pathname,
+      user_agent: navigator.userAgent,
+      device_type: window.innerWidth < 768 ? 'mobile' : window.innerWidth < 1024 ? 'tablet' : 'desktop',
+      screen_width: window.screen.width
+    });
   }
 
   /* === NAVIGATION === */
@@ -207,6 +222,12 @@
   }
 
   /* === INIT === */
+  // Conversion tracking (capture phase = fires before overlays, covers mobile + desktop)
+  document.addEventListener('click', function(e) {
+    if (e.target.closest('a[href*="wa.me"]')) _trackConversion('whatsapp');
+    else if (e.target.closest('a[href^="tel:"]')) _trackConversion('tel');
+  }, true);
+
   document.addEventListener('DOMContentLoaded', function() {
     _init();
     initNav();
