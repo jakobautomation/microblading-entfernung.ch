@@ -951,6 +951,12 @@ strong { font-weight: 600; }
   margin: 0 auto;
   padding: 3rem clamp(1.25rem, 5vw, 3rem);
 }
+@media (min-width: 1024px) {
+  .article-content {
+    max-width: var(--container);
+    padding: 3rem clamp(1.5rem, 4vw, 3rem);
+  }
+}
 .article-content h2 { margin: 2.5rem 0 1rem; }
 .article-content h3 { margin: 2rem 0 0.75rem; }
 .article-content p { margin-bottom: 1.25rem; color: #2C2C2C; }
