@@ -194,9 +194,10 @@
       var number = href.replace('tel:', '');
       // Formatiere Nummer lesbar: +41794132761 → +41 79 413 27 61
       var formatted = number
-        .replace(/^\+41(\d{2})(\d{3})(\d{2})(\d{2})$/, '+41 $1 $2 $3 $4')
+        .replace(/^\+41(\d{2})(\d{3})(\d{2})(\d{2})$/, '0$1 $2 $3 $4')
         .replace(/^\+49(\d{3})(\d{2})(\d{2})(\d{3})$/, '0$1 $2 $3 $4')
-        .replace(/^\+49(\d+)/, '0$1');
+        .replace(/^\+49(\d+)/, '0$1')
+        .replace(/^\+41(\d+)/, '0$1');
       var el = document.getElementById('tel-number');
       el.href = href;
       el.textContent = formatted || number;
