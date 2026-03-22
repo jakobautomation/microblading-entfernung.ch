@@ -775,6 +775,72 @@ strong { font-weight: 600; }
 .sticky-cta-wa { background: var(--whatsapp); color: #fff; }
 .sticky-cta-tel { background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.2); }
 
+/* === WHATSAPP QR OVERLAY === */
+#wa-qr-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  z-index: 2000;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+  animation: waFadeIn 0.2s ease;
+}
+#wa-qr-overlay.active { display: flex; }
+@keyframes waFadeIn { from { opacity: 0; } to { opacity: 1; } }
+.wa-qr-modal {
+  background: #fff;
+  border-radius: 20px;
+  padding: 2.5rem 2rem 2rem;
+  text-align: center;
+  max-width: 340px;
+  width: 90%;
+  position: relative;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.2);
+  animation: waSlideUp 0.25s cubic-bezier(0.16,1,0.3,1);
+}
+@keyframes waSlideUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+.wa-qr-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  line-height: 1;
+  color: #999;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+  transition: color 0.15s, background 0.15s;
+}
+.wa-qr-close:hover { color: #333; background: #f0f0f0; }
+.wa-qr-logo {
+  width: 52px;
+  height: 52px;
+  background: #25D366;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.25rem;
+}
+.wa-qr-logo svg { width: 28px; height: 28px; fill: #fff; }
+.wa-qr-modal h3 { font-size: 1.15rem; margin: 0 0 0.4rem; color: var(--text); }
+.wa-qr-modal p { font-size: 0.875rem; color: var(--text-muted); margin: 0 0 1.25rem; }
+.wa-qr-img-wrap {
+  background: #f8f8f8;
+  border-radius: 12px;
+  display: inline-flex;
+  padding: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+.wa-qr-img-wrap img { display: block; border-radius: 4px; }
+.wa-qr-hint { font-size: 0.8rem; color: var(--text-muted); margin: 0; }
+.wa-qr-hint a { color: var(--accent); font-weight: 600; text-decoration: none; }
+.wa-qr-hint a:hover { text-decoration: underline; }
+
 /* === BLOG === */
 .blog-grid {
   display: grid;
