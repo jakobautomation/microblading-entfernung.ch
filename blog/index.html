@@ -138,9 +138,6 @@
 
     const html = articles.map((a, i) => `
       <article class="blog-card">
-        <div class="blog-card-img" style="background:var(--bg-alt);display:flex;align-items:center;justify-content:center;font-size:2.5rem;">
-          <span>✍️</span>
-        </div>
         <div class="blog-card-body">
           <div class="blog-card-label">Blog</div>
           <h3><a href="/blog/${a.slug}/">${a.title}</a></h3>
