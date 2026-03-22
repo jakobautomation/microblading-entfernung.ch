@@ -305,15 +305,11 @@ strong { font-weight: 600; }
   filter: brightness(0.9) contrast(1.05);
 }
 @media (min-width: 1024px) {
-  .split-7-5 {
-    grid-template-columns: 1fr;
-  }
-  .hero-img {
-    order: 1;
-  }
   .hero-img img {
-    height: 320px;
-    border-radius: var(--radius);
+    height: auto;
+    max-height: 380px;
+    object-fit: contain;
+    object-position: center;
   }
 }
 .hero-img-badge {
