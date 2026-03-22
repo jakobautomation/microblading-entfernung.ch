@@ -7,16 +7,16 @@
 
 /* === CSS VARIABLES === */
 :root {
-  --bg: #FAF8F5;
-  --bg-alt: #F2EDE6;
-  --bg-dark: #1C1008;
-  --bg-dark2: #251507;
-  --accent: #C4884A;
-  --accent-dark: #A06C32;
+  --bg: #F9F7FC;
+  --bg-alt: #EEE8F8;
+  --bg-dark: #1E1128;
+  --bg-dark2: #271540;
+  --accent: #8855CC;
+  --accent-dark: #6A3BA8;
   --text: #1C1C1C;
-  --text-muted: #7A6B60;
-  --text-light: #F5EFE6;
-  --border: #E5DDD4;
+  --text-muted: #6D5E80;
+  --text-light: #F3EFFE;
+  --border: #DDD5ED;
   --whatsapp: #25D366;
   --whatsapp-dark: #1AB854;
   --success: #2E7D52;
