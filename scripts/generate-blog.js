@@ -164,7 +164,7 @@ ${article.content}
         <span class="footer-logo">Microblading<span>-Entfernung.ch</span></span>
         <p class="footer-desc">PicoSure® Laser Praxis in Kreuzlingen.</p>
         <div class="footer-contact-item">🇨🇭 <a href="tel:+41794132761">079 413 27 61</a></div>
-        <div class="footer-contact-item">🇩🇪 <a href="tel:+4917755201800">0177 55 20 180</a></div>
+        <div class="footer-contact-item">🇩🇪 <a href="tel:+491775520180">0177 55 20 180</a></div>
       </div>
       <div class="footer-col">
         <h4>Behandlungen</h4>
@@ -221,12 +221,20 @@ async function generateArticle(topic, targetDate, anthropic) {
     max_tokens: 2000,
     messages: [{
       role: 'user',
-      content: `Schreibe einen SEO-optimierten Blog-Artikel auf Deutsch für die Website microblading-entfernung.ch (Praxis in Kreuzlingen, Schweiz).
+      content: `Schreibe einen SEO-optimierten Blog-Artikel auf Deutsch für die Website microblading-entfernung.ch.
 
 Thema: "${topic.title}"
 Keywords: ${topic.keywords}
 
+WICHTIG — Perspektive:
+Der Autor ist Andreas Baumgärtner, Laser-Experte in Kreuzlingen. Er schreibt in der ERSTEN PERSON SINGULAR ("ich", "mein", "mir", "mich"). NIEMALS "wir", "uns", "unser" verwenden. Beispiele:
+- FALSCH: "Wir entfernen Microblading" → RICHTIG: "Ich entferne Microblading"
+- FALSCH: "Bei uns kostet" → RICHTIG: "Bei mir kostet"
+- FALSCH: "Unsere Praxis" → RICHTIG: "Meine Praxis"
+- FALSCH: "Schreib uns" → RICHTIG: "Schreib mir"
+
 Wichtige Facts:
+- Andreas Baumgärtner, zertifizierter Lasertherapeut, PicoSure-Spezialist seit 2016
 - PicoSure® Laser von Cynosure
 - Praxis: Hauptstr. 14a, 8280 Kreuzlingen
 - Preis: ab CHF 100 pro Sitzung
