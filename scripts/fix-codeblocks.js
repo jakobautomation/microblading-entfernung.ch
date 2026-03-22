@@ -1,11 +1,39 @@
-<!DOCTYPE html>
+#!/usr/bin/env node
+/**
+ * Einmalig: Entfernt ```html ... ``` Wrapper aus allen Artikel-Contents
+ * in Supabase + regeneriert die HTML-Dateien
+ */
+
+const { createClient } = require('@supabase/supabase-js');
+const fs = require('fs');
+const path = require('path');
+
+const SUPABASE_URL = 'https://fbshvqmwdidfitrigxvp.supabase.co';
+const SUPABASE_KEY = process.env.SUPABASE_SERVICE_KEY;
+const WEB_ROOT = '/var/www/microblading-entfernung.ch';
+
+function stripCodeBlock(content) {
+  return content
+    .replace(/^```html\s*/i, '')
+    .replace(/^```\s*/i, '')
+    .replace(/\s*```\s*$/i, '')
+    .trim();
+}
+
+function formatDate(date) {
+  const d = new Date(date);
+  return d.toLocaleDateString('de-CH', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+
+function generateHtml(article) {
+  return `<!DOCTYPE html>
 <html lang="de-CH">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Microblading Haarstrich-Technik entfernen — was macht sie schwieriger? | Microblading Entfernung | Microblading Entfernung</title>
-  <meta name="description" content="Microblading Haarstrich-Technik entfernen — was macht sie schwieriger? — Infos vom PicoSure-Spezialisten in Kreuzlingen. Ab CHF 100 pro Sitzung.">
-  <link rel="canonical" href="https://microblading-entfernung.ch/blog/microblading-haarstrich-entfernen/">
+  <title>${article.meta_title || article.title} | Microblading Entfernung</title>
+  <meta name="description" content="${article.meta_description}">
+  <link rel="canonical" href="https://microblading-entfernung.ch/blog/${article.slug}/">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -15,14 +43,14 @@
   {
     "@context": "https://schema.org",
     "@type": "Article",
-    "headline": "Microblading Haarstrich-Technik entfernen — was macht sie schwieriger?",
-    "description": "Microblading Haarstrich-Technik entfernen — was macht sie schwieriger? — Infos vom PicoSure-Spezialisten in Kreuzlingen. Ab CHF 100 pro Sitzung.",
-    "datePublished": "2026-03-12",
-    "dateModified": "2026-03-12",
+    "headline": "${article.title.replace(/"/g, '\\"')}",
+    "description": "${article.meta_description.replace(/"/g, '\\"')}",
+    "datePublished": "${new Date(article.published_at).toISOString().split('T')[0]}",
+    "dateModified": "${new Date(article.published_at).toISOString().split('T')[0]}",
     "author": { "@type": "Person", "name": "Andreas Baumgärtner" },
     "publisher": { "@type": "Organization", "name": "Microblading Entfernung", "url": "https://microblading-entfernung.ch" }
   }
-  </script>
+  <\/script>
 </head>
 <body>
 
@@ -55,63 +83,15 @@
 
 <div class="article-header">
   <div class="container">
-    <nav class="breadcrumb"><a href="/">Start</a><span class="breadcrumb-sep">›</span><a href="/blog/">Blog</a><span class="breadcrumb-sep">›</span><span>Microblading Haarstrich-Technik entfernen — was macht sie schwieriger?</span></nav>
+    <nav class="breadcrumb"><a href="/">Start</a><span class="breadcrumb-sep">›</span><a href="/blog/">Blog</a><span class="breadcrumb-sep">›</span><span>${article.title}</span></nav>
     <span class="label" style="display:block;margin-top:1.5rem;">Blog</span>
-    <h1>Microblading Haarstrich-Technik entfernen — was macht sie schwieriger?</h1>
-    <div class="article-meta">Von Andreas Baumgärtner · 12. März 2026 · Lesedauer: ca. 5 Min.</div>
+    <h1>${article.title}</h1>
+    <div class="article-meta">Von Andreas Baumgärtner · ${formatDate(article.published_at)} · Lesedauer: ca. 5 Min.</div>
   </div>
 </div>
 
 <div class="article-content">
-<article>
-<p>Du hast dir Microblading machen lassen und möchtest es jetzt entfernen? Dann solltest du wissen, dass die Haarstrich-Technik bei der Entfernung mit Laser besondere Herausforderungen mit sich bringt. In diesem Artikel erklären wir dir, warum Microblading Haarstrich-Entfernung schwieriger ist als du denkst – und wie wir in Kreuzlingen das Problem lösen.</p>
-
-<h2>Was macht Microblading Haarstrich so schwer zu entfernen?</h2>
-
-<p>Microblading ist eine semi-permanente Behandlung, bei der feine Farbpigmente in die oberen Schichten deiner Haut eingebracht werden. Das klingt einfach – die Entfernung ist aber deutlich komplizierter als viele denken.</p>
-
-<h3>Die Pigmente sitzen zu tief</h3>
-
-<p>Bei klassischem Microblading werden die Pigmente in die Dermis – also die mittlere Hautschicht – injiziert. Das ist tiefer als bei reinen Tätowierungen in manchen Fällen. Laser-Geräte müssen diese Pigmente gezielt treffen und zerstören, ohne die umliegende Haut zu schädigen. Das erfordert präzise Abstimmung und viel Erfahrung.</p>
-
-<h3>Unterschiedliche Pigmenttypen</h3>
-
-<p>Ein großes Problem: Es gibt hunderte verschiedene Pigmente, die beim Microblading verwendet werden. Manche sind organisch, andere anorganisch – und sie reagieren alle unterschiedlich auf Laserenergie. Ein Laser, der blaue Pigmente perfekt entfernt, kann bei rötlichen oder orangefarbenen Pigmenten völlig ineffektiv sein. Deine alte Praxis hat dir vielleicht nicht mitgeteilt, welche Pigmente sie verwendet hat. Das macht unseren Job schwieriger.</p>
-
-<h3>Die feinen Härchen-Linien</h3>
-
-<p>Bei der Haarstrich-Technik werden ultra-feine, haarförmige Linien gezeichnet. Diese Feinheit ist ästhetisch wunderschön – aber beim Entfernen ein Nachteil. Die Pigmente verteilen sich über eine sehr große Fläche mit minimaler Konzentration. Das bedeutet, dass der Laser-Impuls präziser sitzen muss als bei flächigen Tätowierungen.</p>
-
-<h2>Warum braucht man mehrere Sitzungen?</h2>
-
-<p>Bei der Entfernung von Microblading Haarstrich mit Laser in der Schweiz rechne realistisch mit <strong>3-4 Behandlungssitzungen</strong>. Warum? Weil selbst fortschrittliche Laser-Technologie die Pigmente nicht komplett beim ersten Mal zerstören kann.</p>
-
-<p>Bei jeder Sitzung werden die Pigmente fragmentiert. Dein Körper transportiert diese Fragmente dann ab. Zwischen den Sitzungen brauchst du Pausen von 6-8 Wochen, damit die Haut regenerieren kann. Diesen Prozess mehrfach zu wiederholen ist notwendig und normal.</p>
-
-<h2>Der PicoSure® Laser – warum dieser Standard?</h2>
-
-<p>In unserer Praxis in Kreuzlingen arbeiten wir mit dem <strong>PicoSure® Laser von Cynosure</strong>. Das ist einer der wenigen Laser, die speziell für Pigment-Entfernung entwickelt wurden. Der Unterschied: PicoSure arbeitet im Picosekunden-Bereich (Billiardstel einer Sekunde), nicht wie ältere Geräte im Nanosekunden-Bereich.</p>
-
-<p>Das bedeutet für dich: Präzisere Fragmentierung, weniger Hitzeentwicklung, bessere Ergebnisse und weniger Nebenwirkungen. Genau das brauchst du bei der feinen Haarstrich-Struktur von Microblading.</p>
-
-<h2>Wie läuft die Entfernung ab?</h2>
-
-<p>Ehrlich gesagt: Es ist kein Spa-Erlebnis. Der Laser-Impuls tut weh – vergleichbar mit dem Gefühl, als würde dir jemand mit einem Gummiband ins Gesicht schnipsen, immer wieder. Wir verwenden Betäubungscreme, um das zu minimieren, aber vollständig schmerzfrei ist es nicht.</p>
-
-<p>Nach der Behandlung kann dein Gesicht rot und geschwollen sein. Das ist normal und klingt innerhalb von 24-48 Stunden ab. Du solltest Sonne meiden und die Stelle gut pflegen.</p>
-
-<h2>Kosten und Investition</h2>
-
-<p>Die Entfernung von Microblading Haarstrich kostet ab <strong>CHF 100 pro Sitzung</strong>. Bei 3-4 Sitzungen summiert sich das. Viele Kunden finden das fair – wenn man bedenkt, dass das ursprüngliche Microblading oft CHF 300-600 gekostet hat und die Entfernung erheblich komplizierter ist.</p>
-
-<h2>Unser Versprechen in Kreuzlingen</h2>
-
-<p>Wir sind <strong>BAG-zertifiziert</strong> und besitzen das <strong>V-NISSG Zertifikat</strong>. Das bedeutet, wir arbeiten nach höchsten Schweizer Standards. Mit über 10 Jahren Erfahrung und einer Bewertung von 4,9/5 Sternen kennen wir die Tücken der Microblading-Entfernung. Wir haben schon hunderte Kunden aus der ganzen Schweiz und sogar aus Deutschland (wie Konstanz) behandelt.</p>
-
-<p>Du erreichst uns in der <strong>Hauptstr. 14a, 8280 Kreuzlingen</strong> – oder direkt per Telefon unter <strong>079 413 27 61</strong> oder über <strong>WhatsApp +41 79 413 27 61</strong>.</p>
-
-<p>Microblading Haarstrich-Entfernung ist eine Herausforderung – aber mit dem richtigen Laser und der richtigen Erfahrung ist sie machbar. Lass dich von uns beraten!</p>
-</article>
+${article.content}
 
   <div class="article-cta-box">
     <strong>Termin vereinbaren:</strong> Schreib uns auf WhatsApp — wir antworten schnell und unverbindlich.<br>
@@ -170,6 +150,50 @@
   <a href="https://wa.me/41794132761" class="sticky-cta-wa" target="_blank" rel="noopener">💬 WhatsApp</a>
   <a href="tel:+41794132761" class="sticky-cta-tel">📞 Anrufen</a>
 </div>
-<script src="/js/main.js" defer></script>
+<script src="/js/main.js" defer><\/script>
 </body>
-</html>
+</html>`;
+}
+
+async function main() {
+  if (!SUPABASE_KEY) { console.error('SUPABASE_SERVICE_KEY fehlt'); process.exit(1); }
+
+  const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  const { data: articles, error } = await supabase
+    .from('blog_articles')
+    .select('*')
+    .eq('is_published', true);
+
+  if (error) { console.error('Supabase Fehler:', error.message); process.exit(1); }
+
+  let fixed = 0;
+  for (const article of articles) {
+    const cleaned = stripCodeBlock(article.content);
+    if (cleaned === article.content) continue; // nichts zu tun
+
+    // Supabase aktualisieren
+    const { error: updateError } = await supabase
+      .from('blog_articles')
+      .update({ content: cleaned })
+      .eq('id', article.id);
+
+    if (updateError) {
+      console.error(`Fehler bei ${article.slug}:`, updateError.message);
+      continue;
+    }
+
+    // HTML-Datei neu schreiben
+    const dir = path.join(WEB_ROOT, 'blog', article.slug);
+    if (fs.existsSync(dir)) {
+      fs.writeFileSync(path.join(dir, 'index.html'), generateHtml({ ...article, content: cleaned }));
+    }
+
+    console.log(`✅ ${article.slug}`);
+    fixed++;
+  }
+
+  console.log(`\nFertig: ${fixed} von ${articles.length} Artikeln bereinigt.`);
+}
+
+main();

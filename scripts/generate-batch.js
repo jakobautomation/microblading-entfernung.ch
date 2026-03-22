@@ -236,7 +236,11 @@ Antworte NUR mit dem HTML-Content des Artikels. Keine Erklärungen.`
     }]
   });
 
-  const content = message.content[0].text;
+  const content = message.content[0].text
+    .replace(/^```html\s*/i, '')
+    .replace(/^```\s*/i, '')
+    .replace(/\s*```\s*$/i, '')
+    .trim();
   const metaDesc = `${topic.title} — Infos vom PicoSure-Spezialisten in Kreuzlingen. Ab CHF 100 pro Sitzung.`;
 
   return {
