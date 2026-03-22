@@ -1,316 +1,248 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:news="http://www.google.com/schemas/sitemap-news/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
   <url>
     <loc>https://microblading-entfernung.ch/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-    <lastmod>2026-03-21</lastmod>
+    <lastmod>2026-03-22</lastmod>
   </url>
   <url>
     <loc>https://microblading-entfernung.ch/picosure-laser/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
-    <lastmod>2026-03-21</lastmod>
+    <lastmod>2026-03-22</lastmod>
   </url>
   <url>
     <loc>https://microblading-entfernung.ch/augenbrauen-entfernung/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
-    <lastmod>2026-03-21</lastmod>
+    <lastmod>2026-03-22</lastmod>
   </url>
   <url>
     <loc>https://microblading-entfernung.ch/permanent-makeup-entfernung/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
-    <lastmod>2026-03-21</lastmod>
+    <lastmod>2026-03-22</lastmod>
   </url>
   <url>
     <loc>https://microblading-entfernung.ch/preise/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <lastmod>2026-03-21</lastmod>
+    <lastmod>2026-03-22</lastmod>
   </url>
   <url>
     <loc>https://microblading-entfernung.ch/faq/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <lastmod>2026-03-21</lastmod>
+    <lastmod>2026-03-22</lastmod>
   </url>
   <url>
     <loc>https://microblading-entfernung.ch/blog/</loc>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
-    <lastmod>2026-03-21</lastmod>
-  </url>
-  <url>
-    <loc>https://microblading-entfernung.ch/blog/was-ist-microblading-entfernung/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <lastmod>2026-03-21</lastmod>
-  </url>
-  <url>
-    <loc>https://microblading-entfernung.ch/blog/picosure-laser-microblading/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
     <lastmod>2026-03-22</lastmod>
   </url>
   <url>
-    <loc>https://microblading-entfernung.ch/blog/kosten-microblading-entfernung-schweiz/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <lastmod>2026-03-23</lastmod>
+    <loc>https://microblading-entfernung.ch/datenschutz/</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <lastmod>2026-03-22</lastmod>
   </url>
   <url>
-    <loc>https://microblading-entfernung.ch/blog/heilung-nach-microblading-entfernung/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <lastmod>2026-03-24</lastmod>
-  </url>
-  <url>
-    <loc>https://microblading-entfernung.ch/blog/microblading-entfernen-oder-ueberblenden/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <lastmod>2026-03-25</lastmod>
-  </url>
-  <url>
-    <loc>https://microblading-entfernung.ch/blog/microblading-grau-verfaerbt-entfernen/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <lastmod>2026-03-26</lastmod>
-  </url>
-  <url>
-    <loc>https://microblading-entfernung.ch/blog/microblading-entfernung-schmerzen/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <lastmod>2026-03-27</lastmod>
-  </url>
-  <url>
-    <loc>https://microblading-entfernung.ch/blog/microblading-augenbrauen-verblasst/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <lastmod>2026-03-28</lastmod>
-  </url>
-  <url>
-    <loc>https://microblading-entfernung.ch/blog/picosure-vs-qswitch-laser/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <lastmod>2026-03-29</lastmod>
-  </url>
-  <url>
-    <loc>https://microblading-entfernung.ch/blog/microblading-vorbereitung-entfernung/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <lastmod>2026-03-30</lastmod>
-  </url>
-  <url>
-    <loc>https://microblading-entfernung.ch/blog/permanent-makeup-kreuzlingen/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <lastmod>2026-03-31</lastmod>
-  </url>
-  <url>
-    <loc>https://microblading-entfernung.ch/blog/microblading-entfernen-zuerich/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <lastmod>2026-04-01</lastmod>
-  </url>
-  <url>
-    <loc>https://microblading-entfernung.ch/blog/augenbrauen-pmu-entfernen-tipps/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <lastmod>2026-04-02</lastmod>
-  </url>
-  <url>
-    <loc>https://microblading-entfernung.ch/blog/microblading-narben-vermeiden/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <lastmod>2026-04-03</lastmod>
-  </url>
-  <url>
-    <loc>https://microblading-entfernung.ch/blog/microblading-entfernung-erfahrungen/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <lastmod>2026-04-04</lastmod>
-  </url>
-  <url>
-    <loc>https://microblading-entfernung.ch/blog/microblading-schwarz-entfernen/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <lastmod>2026-04-05</lastmod>
-  </url>
-  <url>
-    <loc>https://microblading-entfernung.ch/blog/microblading-neu-stechen-nach-entfernung/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <lastmod>2026-04-06</lastmod>
-  </url>
-  <url>
-    <loc>https://microblading-entfernung.ch/blog/microblading-grau-blau-entfernen/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <lastmod>2026-04-07</lastmod>
-  </url>
-  <url>
-    <loc>https://microblading-entfernung.ch/blog/heilungsphase-microblading-entfernung/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <lastmod>2026-04-08</lastmod>
-  </url>
-  <url>
-    <loc>https://microblading-entfernung.ch/blog/microblading-entfernen-kosten-vergleich/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <lastmod>2026-04-09</lastmod>
-  </url>
-  <url>
-    <loc>https://microblading-entfernung.ch/blog/microblading-tiefe-haut-laser/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <lastmod>2026-04-10</lastmod>
-  </url>
-  <url>
-    <loc>https://microblading-entfernung.ch/blog/microblading-entfernung-schwangerschaft/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <lastmod>2026-04-11</lastmod>
-  </url>
-  <url>
-    <loc>https://microblading-entfernung.ch/blog/microblading-haarstrich-technik-entfernen/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <lastmod>2026-04-12</lastmod>
-  </url>
-  <url>
-    <loc>https://microblading-entfernung.ch/blog/powder-brows-entfernen/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <lastmod>2026-04-13</lastmod>
-  </url>
-  <url>
-    <loc>https://microblading-entfernung.ch/blog/ombre-brows-entfernen/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <lastmod>2026-04-14</lastmod>
-  </url>
-  <url>
-    <loc>https://microblading-entfernung.ch/blog/microblading-sitzungen-wie-viele/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <lastmod>2026-04-15</lastmod>
-  </url>
-  <url>
-    <loc>https://microblading-entfernung.ch/blog/microblading-haut-sensibel-entfernen/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <lastmod>2026-04-16</lastmod>
-  </url>
-  <url>
-    <loc>https://microblading-entfernung.ch/blog/microblading-entfernung-winterthur/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <lastmod>2026-04-17</lastmod>
-  </url>
-  <url>
-    <loc>https://microblading-entfernung.ch/blog/microblading-entfernung-st-gallen/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <lastmod>2026-04-18</lastmod>
-  </url>
-  <url>
-    <loc>https://microblading-entfernung.ch/blog/tattoo-vs-microblading-entfernen/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <lastmod>2026-04-19</lastmod>
-  </url>
-  <url>
-    <loc>https://microblading-entfernung.ch/blog/microblading-rot-verfaerbt-entfernen/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <lastmod>2026-04-20</lastmod>
-  </url>
-  <url>
-    <loc>https://microblading-entfernung.ch/blog/microblading-lip-liner-entfernen/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <lastmod>2026-04-21</lastmod>
-  </url>
-  <url>
-    <loc>https://microblading-entfernung.ch/blog/microblading-entfernung-kosten-krankenkasse/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <lastmod>2026-04-22</lastmod>
-  </url>
-  <url>
-    <loc>https://microblading-entfernung.ch/blog/pmu-entfernung-augenlid/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <lastmod>2026-04-23</lastmod>
-  </url>
-  <url>
-    <loc>https://microblading-entfernung.ch/blog/microblading-entfernung-fruehjahr-timing/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <lastmod>2026-04-24</lastmod>
+    <loc>https://microblading-entfernung.ch/impressum/</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <lastmod>2026-03-22</lastmod>
   </url>
   <url>
     <loc>https://microblading-entfernung.ch/blog/microblading-entfernung-konstanz-deutschland/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <lastmod>2026-04-25</lastmod>
+    <lastmod>2026-04-21</lastmod>
   </url>
   <url>
-    <loc>https://microblading-entfernung.ch/blog/microblading-haarstrich-entfernen/</loc>
+    <loc>https://microblading-entfernung.ch/blog/microblading-entfernung-fruehjahr-timing/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <lastmod>2026-03-12</lastmod>
+    <lastmod>2026-04-20</lastmod>
   </url>
   <url>
-    <loc>https://microblading-entfernung.ch/blog/powder-brows-laser-entfernen/</loc>
+    <loc>https://microblading-entfernung.ch/blog/pmu-entfernung-augenlid/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <lastmod>2026-03-13</lastmod>
+    <lastmod>2026-04-19</lastmod>
   </url>
   <url>
-    <loc>https://microblading-entfernung.ch/blog/microblading-rot-stich-entfernen/</loc>
+    <loc>https://microblading-entfernung.ch/blog/microblading-entfernung-kosten-krankenkasse/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <lastmod>2026-03-14</lastmod>
+    <lastmod>2026-04-18</lastmod>
   </url>
   <url>
-    <loc>https://microblading-entfernung.ch/blog/microblading-entfernen-basel/</loc>
+    <loc>https://microblading-entfernung.ch/blog/microblading-lip-liner-entfernen/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <lastmod>2026-03-15</lastmod>
+    <lastmod>2026-04-17</lastmod>
   </url>
   <url>
-    <loc>https://microblading-entfernung.ch/blog/microblading-entfernen-bern/</loc>
+    <loc>https://microblading-entfernung.ch/blog/microblading-rot-verfaerbt-entfernen/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <lastmod>2026-03-16</lastmod>
+    <lastmod>2026-04-16</lastmod>
   </url>
   <url>
-    <loc>https://microblading-entfernung.ch/blog/microblading-zwischen-sitzungen-pflege/</loc>
+    <loc>https://microblading-entfernung.ch/blog/tattoo-vs-microblading-entfernen/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <lastmod>2026-03-17</lastmod>
+    <lastmod>2026-04-15</lastmod>
   </url>
   <url>
-    <loc>https://microblading-entfernung.ch/blog/microblading-entfernen-lucerne/</loc>
+    <loc>https://microblading-entfernung.ch/blog/microblading-entfernung-st-gallen/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <lastmod>2026-03-18</lastmod>
+    <lastmod>2026-04-14</lastmod>
   </url>
   <url>
-    <loc>https://microblading-entfernung.ch/blog/microblading-zu-dunkel-entfernen/</loc>
+    <loc>https://microblading-entfernung.ch/blog/microblading-entfernung-winterthur/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <lastmod>2026-03-19</lastmod>
+    <lastmod>2026-04-13</lastmod>
   </url>
   <url>
-    <loc>https://microblading-entfernung.ch/blog/microblading-entfernen-st-gallen/</loc>
+    <loc>https://microblading-entfernung.ch/blog/microblading-haut-sensibel-entfernen/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <lastmod>2026-03-20</lastmod>
+    <lastmod>2026-04-12</lastmod>
+  </url>
+  <url>
+    <loc>https://microblading-entfernung.ch/blog/microblading-sitzungen-wie-viele/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-04-11</lastmod>
+  </url>
+  <url>
+    <loc>https://microblading-entfernung.ch/blog/ombre-brows-entfernen/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-04-10</lastmod>
+  </url>
+  <url>
+    <loc>https://microblading-entfernung.ch/blog/powder-brows-entfernen/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-04-09</lastmod>
+  </url>
+  <url>
+    <loc>https://microblading-entfernung.ch/blog/microblading-haarstrich-technik-entfernen/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-04-08</lastmod>
+  </url>
+  <url>
+    <loc>https://microblading-entfernung.ch/blog/microblading-entfernung-schwangerschaft/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-04-07</lastmod>
+  </url>
+  <url>
+    <loc>https://microblading-entfernung.ch/blog/microblading-tiefe-haut-laser/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-04-06</lastmod>
+  </url>
+  <url>
+    <loc>https://microblading-entfernung.ch/blog/microblading-entfernen-kosten-vergleich/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-04-05</lastmod>
+  </url>
+  <url>
+    <loc>https://microblading-entfernung.ch/blog/heilungsphase-microblading-entfernung/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-04-04</lastmod>
+  </url>
+  <url>
+    <loc>https://microblading-entfernung.ch/blog/microblading-grau-blau-entfernen/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-04-03</lastmod>
+  </url>
+  <url>
+    <loc>https://microblading-entfernung.ch/blog/microblading-neu-stechen-nach-entfernung/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-04-02</lastmod>
+  </url>
+  <url>
+    <loc>https://microblading-entfernung.ch/blog/microblading-schwarz-entfernen/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-04-01</lastmod>
+  </url>
+  <url>
+    <loc>https://microblading-entfernung.ch/blog/microblading-entfernung-erfahrungen/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-03-31</lastmod>
+  </url>
+  <url>
+    <loc>https://microblading-entfernung.ch/blog/microblading-narben-vermeiden/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-03-30</lastmod>
+  </url>
+  <url>
+    <loc>https://microblading-entfernung.ch/blog/augenbrauen-pmu-entfernen-tipps/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-03-29</lastmod>
+  </url>
+  <url>
+    <loc>https://microblading-entfernung.ch/blog/microblading-entfernen-zuerich/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-03-28</lastmod>
+  </url>
+  <url>
+    <loc>https://microblading-entfernung.ch/blog/permanent-makeup-kreuzlingen/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-03-27</lastmod>
+  </url>
+  <url>
+    <loc>https://microblading-entfernung.ch/blog/microblading-vorbereitung-entfernung/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-03-26</lastmod>
+  </url>
+  <url>
+    <loc>https://microblading-entfernung.ch/blog/picosure-vs-qswitch-laser/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-03-25</lastmod>
+  </url>
+  <url>
+    <loc>https://microblading-entfernung.ch/blog/microblading-augenbrauen-verblasst/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-03-24</lastmod>
+  </url>
+  <url>
+    <loc>https://microblading-entfernung.ch/blog/microblading-entfernung-schmerzen/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-03-23</lastmod>
+  </url>
+  <url>
+    <loc>https://microblading-entfernung.ch/blog/microblading-haut-vorbereiten-sommer/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-03-22</lastmod>
   </url>
   <url>
     <loc>https://microblading-entfernung.ch/blog/microblading-fehlgeschlagen-korrektur/</loc>
@@ -319,9 +251,57 @@
     <lastmod>2026-03-21</lastmod>
   </url>
   <url>
-    <loc>https://microblading-entfernung.ch/blog/microblading-haut-vorbereiten-sommer/</loc>
+    <loc>https://microblading-entfernung.ch/blog/microblading-entfernen-st-gallen/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <lastmod>2026-03-22</lastmod>
+    <lastmod>2026-03-20</lastmod>
+  </url>
+  <url>
+    <loc>https://microblading-entfernung.ch/blog/microblading-zu-dunkel-entfernen/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-03-19</lastmod>
+  </url>
+  <url>
+    <loc>https://microblading-entfernung.ch/blog/microblading-entfernen-lucerne/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-03-18</lastmod>
+  </url>
+  <url>
+    <loc>https://microblading-entfernung.ch/blog/microblading-zwischen-sitzungen-pflege/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-03-17</lastmod>
+  </url>
+  <url>
+    <loc>https://microblading-entfernung.ch/blog/microblading-entfernen-bern/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-03-16</lastmod>
+  </url>
+  <url>
+    <loc>https://microblading-entfernung.ch/blog/microblading-entfernen-basel/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-03-15</lastmod>
+  </url>
+  <url>
+    <loc>https://microblading-entfernung.ch/blog/microblading-rot-stich-entfernen/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-03-14</lastmod>
+  </url>
+  <url>
+    <loc>https://microblading-entfernung.ch/blog/powder-brows-laser-entfernen/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-03-13</lastmod>
+  </url>
+  <url>
+    <loc>https://microblading-entfernung.ch/blog/microblading-haarstrich-entfernen/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-03-12</lastmod>
   </url>
 </urlset>
