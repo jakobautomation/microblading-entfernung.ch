@@ -805,6 +805,8 @@ strong { font-weight: 600; }
 .article-content h3 { margin: 2rem 0 0.75rem; }
 .article-content p { margin-bottom: 1.25rem; color: #2C2C2C; }
 .article-content ul, .article-content ol { margin: 0 0 1.25rem 1.5rem; }
+.article-content ul { list-style: disc; }
+.article-content ol { list-style: decimal; }
 .article-content li { margin-bottom: 0.5rem; color: #2C2C2C; }
 .article-content img { border-radius: var(--radius); margin: 2rem 0; }
 .article-cta-box {
