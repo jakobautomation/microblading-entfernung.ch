@@ -3,7 +3,55 @@
    Playfair Display + Source Sans 3
    ============================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;600&display=swap');
+/* ── Self-hosted Fonts ── */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: optional;
+  src: url('/fonts/playfair-normal-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: optional;
+  src: url('/fonts/playfair-normal-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: italic;
+  font-weight: 400;
+  font-display: optional;
+  src: url('/fonts/playfair-italic-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: italic;
+  font-weight: 400;
+  font-display: optional;
+  src: url('/fonts/playfair-italic-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Source Sans 3';
+  font-style: normal;
+  font-weight: 300 600;
+  font-display: optional;
+  src: url('/fonts/sourcesans3-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Source Sans 3';
+  font-style: normal;
+  font-weight: 300 600;
+  font-display: optional;
+  src: url('/fonts/sourcesans3-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
 
 /* === CSS VARIABLES === */
 :root {
@@ -17,8 +65,8 @@
   --text-muted: #6D5E80;
   --text-light: #F3EFFE;
   --border: #DDD5ED;
-  --whatsapp: #25D366;
-  --whatsapp-dark: #1AB854;
+  --whatsapp: #0D7B3B;
+  --whatsapp-dark: #0A5E2C;
   --success: #2E7D52;
 
   --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
@@ -514,7 +562,7 @@ strong { font-weight: 600; }
   padding: clamp(2rem, 4vw, 3rem);
 }
 .highlight-box h2, .highlight-box h3 { color: #fff; }
-.highlight-box .label { color: var(--accent); }
+.highlight-box .label { color: #B388EE; }
 .highlight-number {
   font-family: var(--font-display);
   font-size: clamp(3rem, 8vw, 5rem);
@@ -668,6 +716,7 @@ strong { font-weight: 600; }
   text-align: center;
 }
 .cta-section h2 { color: #fff; margin-bottom: 0.75rem; }
+.cta-section .label { color: #B388EE; }
 .cta-section p { color: rgba(255,255,255,0.65); font-size: 1.1rem; margin-bottom: 2rem; max-width: 520px; margin-left: auto; margin-right: auto; }
 .cta-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem; }
 .cta-note { font-size: 0.85rem; color: rgba(255,255,255,0.45); margin-top: 1rem; }
@@ -694,7 +743,7 @@ strong { font-weight: 600; }
   margin-bottom: 0.75rem;
   display: block;
 }
-.footer-logo span { color: var(--accent); }
+.footer-logo span { color: #B388EE; }
 .footer-desc { font-size: 0.9rem; line-height: 1.65; margin-bottom: 1.5rem; }
 .footer-contact-item {
   display: flex;
@@ -705,7 +754,7 @@ strong { font-weight: 600; }
 }
 .footer-contact-item a { color: rgba(255,255,255,0.8); transition: color 0.2s; }
 .footer-contact-item a:hover { color: var(--accent); }
-.footer-col h4 {
+.footer-col h3 {
   font-family: var(--font-display);
   font-size: 1rem;
   color: #fff;
@@ -728,9 +777,9 @@ strong { font-weight: 600; }
   align-items: center;
   gap: 0.75rem;
   font-size: 0.82rem;
-  color: rgba(255,255,255,0.4);
+  color: rgba(255,255,255,0.65);
 }
-.footer-bottom a { color: rgba(255,255,255,0.4); transition: color 0.2s; }
+.footer-bottom a { color: rgba(255,255,255,0.65); transition: color 0.2s; }
 .footer-bottom a:hover { color: rgba(255,255,255,0.8); }
 
 /* === WHATSAPP FAB === */
