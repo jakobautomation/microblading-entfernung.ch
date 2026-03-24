@@ -178,7 +178,7 @@ strong { font-weight: 600; }
   line-height: 1.2;
   flex-shrink: 0;
 }
-.nav-logo span { color: var(--accent); }
+.nav-logo span { color: #B388EE; }
 .nav-links {
   display: flex;
   align-items: center;
